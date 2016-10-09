@@ -33,9 +33,8 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <fragment
-        android:id="@+id/details_container"
-        android:name="com.lees.umarket.ui.fragments.MarketItemListFragment"
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,31 +27,15 @@ public class MarketItemListFragment extends Fragment {
     OnListFragmentInteractionListener mListener;
     List<MarketItem> marketItems;
 
+    public List<MarketItem> getMarketItems() {
+        return marketItems;
+    }
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
     public MarketItemListFragment() {
-    }
-
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static MarketItemListFragment newInstance() {
-        MarketItemListFragment fragment = new MarketItemListFragment();
-
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_marketitem_list, container, false);
-
         marketItems = new ArrayList<>();
         marketItems.add(new House("title 1", "description 1"));
         marketItems.add(new House("title 2", "description 2"));
@@ -67,7 +52,32 @@ public class MarketItemListFragment extends Fragment {
         marketItems.add(new House("title 13", "description 13"));
         marketItems.add(new House("title 14", "description 14"));
         marketItems.add(new House("title 15", "description 15"));
+    }
 
+    // TODO: Customize parameter initialization
+    @SuppressWarnings("unused")
+    public static MarketItemListFragment newInstance() {
+        MarketItemListFragment fragment = new MarketItemListFragment();
+
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        Log.d("[MarketItemListFrag]", "onCreate");
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        Log.d("[MarketItemListFrag]", "onCreateView");
+        return inflater.inflate(R.layout.fragment_marketitem_list, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        Log.d("[MarketItemListFrag]", "onViewCreated");
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -75,11 +85,11 @@ public class MarketItemListFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(new MarketItemListAdapter(marketItems, mListener));
         }
-        return view;
     }
 
     @Override
     public void onAttach(Context context) {
+        Log.d("[MarketItemListFrag]", "onAttach");
         super.onAttach(context);
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
@@ -91,6 +101,7 @@ public class MarketItemListFragment extends Fragment {
 
     @Override
     public void onDetach() {
+        Log.d("[MarketItemListFrag]", "onDetach");
         super.onDetach();
         mListener = null;
     }
